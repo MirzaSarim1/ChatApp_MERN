@@ -9,6 +9,17 @@ const LoginPage = () => {
   const [bio, setBio] = useState('');
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+
+    if(currState === 'Sign up' && !isDataSubmitted) {
+      // Simulate data submission
+      setIsDataSubmitted(true);
+      return;
+    }
+
+  }
+
   return (
     <div className='min-h-screen bg-cover bg-center flex items-center
     justify-center gap-8 sm:justify-evenly max-sm:flex-col backdrop-blur-2xl'>
@@ -17,12 +28,14 @@ const LoginPage = () => {
 
       {/* Right Side */}
 
-      <form className='border-2 bg-white/8 text-white border-gray-500 p-6 flex
+      <form onSubmit={onSubmitHandler} className='border-2 bg-white/8 text-white border-gray-500 p-6 flex
       flex-col gap-6 rounded-lg shadow-lg'>
         <h2 className='font-medium text-2xl flex justify-between items-center'>
           {currState}
-          <img src={assets.arrow_icon} alt="" 
+          {isDataSubmitted &&  <img onClick={()=> setIsDataSubmitted(false)} src={assets.arrow_icon} alt="" 
           className='w-5 cursor-pointer'/>
+          }
+
         </h2>
 
         {
