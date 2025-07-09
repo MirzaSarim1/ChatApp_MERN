@@ -8,6 +8,6 @@ const messageSchema = new mongoose.Schema({
     seen : {type: Boolean, default: false},
 }, {timestamps: true});
 
-const User = mongoose.model('Message', messageSchema);
+const Message = mongoose.model('Message', messageSchema);
 
 export default Message;

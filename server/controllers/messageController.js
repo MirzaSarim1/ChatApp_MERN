@@ -1,5 +1,5 @@
 import Message from "../models/Message.js";
-import Message from "../models/User.js";
+import User from "../models/User.js";
 import cloudinary from "../lib/cloudinary.js";
 import { io, userSocketMap } from "../server.js";
 
@@ -25,6 +25,7 @@ export const getUsersForSidebar = async (req, res) => {
             users: filteredUsers,
             unseenMessage
         });
+        console.log("Users fetched successfully")
     } catch (error) {
         console.log(error.message);
         res.json({  
@@ -112,6 +113,10 @@ export const sendMessage = async (req, res) => {
             newMessage
         });
     } catch (error) {
-        
+        console.log(error.message);
+        res.json({  
+            success: false,
+            message: error.message
+        });
     }
 }
