@@ -9,6 +9,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [bio, setBio] = useState('');
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const { login } = useContext(AuthContext);
 
@@ -21,6 +22,11 @@ const LoginPage = () => {
       return;
     }
 
+    if (!termsAccepted) {
+      toast.error('Please accept the terms and conditions to proceed');
+      return;
+    }
+    
     login(currState === 'Sign up' ? 'signup' : 'login', {fullName, email,
       password, bio
     })
@@ -80,7 +86,11 @@ const LoginPage = () => {
         </button>
 
         <div className='flex items-center gap-2 text-sm text-gray-500'>
-          <input type="checkbox" />
+          <input type="checkbox" 
+            checked={termsAccepted}
+            onChange={(e) => setTermsAccepted(e.target.checked)}
+            required
+          />
           <p>Agree to terms of use & privacy policy.</p>
         </div>
 

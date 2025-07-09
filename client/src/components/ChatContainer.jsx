@@ -51,7 +51,6 @@ const ChatContainer = () => {
     if(scrollEnd.current && messages) {
       scrollEnd.current.scrollIntoView({ behavior: 'smooth' }) 
     }
-
   },[messages])
 
   return selectedUser ? (
@@ -61,7 +60,7 @@ const ChatContainer = () => {
       <img src={selectedUser.profilePic || assets.avatar_icon} alt="" className='w-8 rounded-full'/>
       <p className='flex-1 text-lg text-white flex items-center gap-2'>
         {selectedUser.fullName}
-        {onlineUsers.includes(selectedUser._id)}<span className='w-2 h-2 rounded-full bg-green-500'></span>
+        {onlineUsers.includes(selectedUser._id) && <span className='w-2 h-2 rounded-full bg-green-500'></span>}
       </p>
       <img onClick={()=> setSelectedUser(null)} src={assets.arrow_icon} alt="" 
       className='md:hidden max-w-7'/>
@@ -70,8 +69,8 @@ const ChatContainer = () => {
       {/* Chat Messages */}
       <div className='flex flex-col h-[calc(100%-120px)] overflow-y-scroll p-3 pb-6'>
         {messages.map((msg, index)=>(
-          <div key={index} className={`flex items-end gap-2 justify-end ${msg.
-            senderId !== authUser._id && 'flex-row-reverse'}`}>
+          <div key={index} className={`flex items-end gap-2 justify-end ${
+            msg.senderId !== authUser._id && 'flex-row-reverse'}`}>
               {msg.image ? (
                 <img src={msg.image} alt="" className='max-w-[230px] border
                 border-gray-700 rounded-lg overflow-hidden mb-8'/>
@@ -81,8 +80,7 @@ const ChatContainer = () => {
                     'rounded-bl-none'}`}>{msg.text}</p>
               )}
               <div className='text-center text-xs'>
-                  <img src={msg.senderId === authUser._id ? authUser?.profilePic || assets.avatar_icon : 
-                    selectedUser?.profilePic ||  assets.avatar_icon
+                  <img src={msg.senderId === authUser._id ? authUser?.profilePic || assets.avatar_icon : selectedUser?.profilePic ||  assets.avatar_icon
                   } alt="" className='w-7 rounded-full'/> 
                   <p className='text-gray-500'>{formatMessageTime(msg.createdAt)}</p>
               </div>

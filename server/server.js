@@ -13,9 +13,7 @@ const server = http.createServer(app);
 
 // Socket.io Setup
 export const io = new Server(server, {
-    cors: {
-        origin: "*"
-    }
+    cors: {origin: "*"}
 })
 
 // Store Online Users
@@ -24,7 +22,7 @@ export const userSocketMap = {};
 // Socket.io Connection
 io.on("connection", (socket) => {
     const userId = socket.handshake.query.userId;
-    console.log(`User connected: ${userId}`);
+    console.log("User Connected", userId);
 
     if (userId) {
         userSocketMap[userId] = socket.id;
